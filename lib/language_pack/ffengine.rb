@@ -52,7 +52,7 @@ module LanguagePack
 
     def download_ffengine(ffengine_tarball)
       # TODO : Keep the tarball around, check for it next time instead of re-downloading
-      if (File.exists(ffengine_tarball))
+      if (File.exists?(ffengine_tarball))
         puts "###"
         puts "# tarball found - shouldn't really download again"
         puts "###"
