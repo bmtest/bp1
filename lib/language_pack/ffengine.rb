@@ -39,7 +39,7 @@ module LanguagePack
       download_ffengine ffengine_tarball
 
       puts "Unpacking FFEngine to #{ffengine_dir}"
-      puts run_with_err_output("echo starting jar extract; $(HOME)/.jdk/bin/jar xvf #{ffengine_tarball} -C #{ffengine_dir} ; echo jar extract complete")
+      puts run_with_err_output("echo starting jar extract; $HOME/.jdk/bin/jar xvf #{ffengine_tarball} -C #{ffengine_dir} ; echo jar extract complete")
       puts "Listing contents of #{ffengine_dir}"
       run_with_err_output("ls -al #{ffengine_dir}")
       puts "Removing #{ffengine_tarball}"
