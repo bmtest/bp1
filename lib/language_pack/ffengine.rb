@@ -6,8 +6,8 @@ module LanguagePack
   class FFEngine < Java
     include LanguagePack::PackageFetcher
 
-    FFEngine_REL_VERSION = "R1.4.0"
-    FFEngine_SVN_VERSION = "R2850"
+    FFEngine_REL_VERSION = "R1.4.0.1"
+    FFEngine_SVN_VERSION = "R2872"
     FFEngine_DOWNLOAD = "https://system.fatfractal.com/repo/artifact/Releases/#{FFEngine_REL_VERSION}"
     FFEngine_PACKAGE =  "FF_RUNTIME_#{FFEngine_REL_VERSION}_#{FFEngine_SVN_VERSION}.zip".freeze
     FFEngine_TOP_DIR = "FatFractal_Runtime"
