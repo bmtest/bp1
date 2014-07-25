@@ -41,7 +41,7 @@ module LanguagePack
       puts "Unpacking FFEngine to #{ffengine_dir}"
       puts run_with_err_output("echo starting jar extract; $HOME/.jdk/bin/jar xvf #{ffengine_tarball} -C #{ffengine_dir} ; echo jar extract complete")
       puts "Listing contents of #{ffengine_dir}"
-      run_with_err_output("ls -al #{ffengine_dir}")
+      puts run_with_err_output("ls -al #{ffengine_dir}")
       # puts "Removing #{ffengine_tarball}"
       # FileUtils.rm_rf ffengine_tarball
       puts "Checking for #{FFEngine_TOP_DIR}/bin/ff-service"
@@ -79,7 +79,8 @@ module LanguagePack
 
     def copy_resources
       # copy ffengine configuration updates into place
-      run_with_err_output("cp -r #{File.expand_path('../../../resources/ffengine', __FILE__)}/* #{build_path}")
+      puts "Copying ffengine configuration changes into place"
+      puts run_with_err_output("cp -r #{File.expand_path('../../../resources/ffengine', __FILE__)}/* #{build_path}")
     end
 
     def default_process_types
