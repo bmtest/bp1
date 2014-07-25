@@ -22,12 +22,13 @@ module LanguagePack
 
     def compile
       Dir.chdir(build_path) do
+        # install_java and setup_profiled are part of our superclass (Java)
         install_java
+        setup_profiled
+        # here's our stuff
         install_ffengine
         move_ffengine_to_root
         copy_resources
-        # setup_profiled is part of our superclass (Java)
-        setup_profiled
       end
     end
 
