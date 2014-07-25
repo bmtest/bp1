@@ -42,8 +42,8 @@ module LanguagePack
       puts run_with_err_output("echo starting jar extract; $HOME/.jdk/bin/jar xvf #{ffengine_tarball} -C #{ffengine_dir} ; echo jar extract complete")
       puts "Listing contents of #{ffengine_dir}"
       run_with_err_output("ls -al #{ffengine_dir}")
-      puts "Removing #{ffengine_tarball}"
-      FileUtils.rm_rf ffengine_tarball
+      # puts "Removing #{ffengine_tarball}"
+      # FileUtils.rm_rf ffengine_tarball
       puts "Checking for #{FFEngine_TOP_DIR}/bin/ff-service"
       unless File.exists?("#{ffengine_dir}/#{FFEngine_TOP_DIR}/bin/ff-service")
         puts "Unable to download FFEngine"
@@ -52,17 +52,18 @@ module LanguagePack
     end
 
     def download_ffengine(ffengine_tarball)
+      # TODO : Do the same for the JDK
       # TODO : Keep the tarball around, check for it next time instead of re-downloading
       if (File.exists?(ffengine_tarball))
         puts "###"
         puts "# tarball found - shouldn't really download again"
         puts "###"
+      else
+        puts "Downloading FFEngine: #{FFEngine_PACKAGE}"
+        fetch_package FFEngine_PACKAGE, FFEngine_DOWNLOAD
+        puts "Downloaded FFEngine: #{FFEngine_PACKAGE}"
+        FileUtils.mv FFEngine_PACKAGE, ffengine_tarball
       end
-      # TODO : Do the same for the JDK
-      puts "Downloading FFEngine: #{FFEngine_PACKAGE}"
-      fetch_package FFEngine_PACKAGE, FFEngine_DOWNLOAD
-      puts "Downloaded FFEngine: #{FFEngine_PACKAGE}"
-      FileUtils.mv FFEngine_PACKAGE, ffengine_tarball
     end
 
     def ffengine_dir
