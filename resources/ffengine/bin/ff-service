@@ -1,0 +1,98 @@
+#!/bin/bash
+
+commandline() {
+   "$JAVACMD" ${JVMOPTS} "-Dsun.net.http.allowRestrictedHeaders=true" "-Dcom.fatfractal.system.deploy.directory=$FATFRACTAL_HOME" "-Dcom.fatfractal.system.start.mode=cl" "-Dcom.fatfractal.tool.main=run" -jar lib/fatfractal-tool-0.1.0.jar
+   }
+
+# Lets look for Java...
+cygwin=false
+darwin=false
+case "`uname`" in
+    CYGWIN*) cygwin=true ;;
+    Darwin*) darwin=true
+        if [ -z "$JAVA_VERSION" ]; then
+            JAVA_VERSION="CurrentJDK"
+        else
+            echo "Using Java version: $JAVA_VERSION"
+        fi
+        ;;
+
+esac
+
+# For Cygwin, make certain paths are UNIX style
+if $cygwin ; then
+    [ -n "$JAVA_HOME" ] &&
+        JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
+fi
+
+if [ -z "$JAVACMD" ]; then
+    if [ -n "$JAVA_HOME" ]; then
+        JAVACMD="$JAVA_HOME/bin/java"
+    else
+        JAVACMD=`which java`
+    fi
+fi
+
+if [ ! -x "$JAVACMD" ]; then
+   echo "ERROR: JAVA_HOME is not defined correctly. Cannot execute '$JAVACMD'."
+   exit 1
+fi
+
+FATFRACTAL_HOME=`pwd`
+echo "FatFractal HOME $FATFRACTAL_HOME"
+
+if [ "$OS" = "Windows_NT" ] ; then
+   PS=";"
+   FATFRACTAL_HOME=`cygpath -w $FATFRACTAL_HOME`
+fi
+
+FATFRACTAL_PID=$FATFRACTAL_HOME/fatfractal.pid
+
+echo "Operating system is: " `uname` ":" `uname -a`
+
+cd $FATFRACTAL_HOME
+echo "Contents of FatFractal HOME (current working directory): "
+ls -l
+
+echo "Contents of lib"
+ls -al lib
+
+
+echo "################################################################################"
+echo "###                                                                          ###"
+echo "###      Echoing all environment variables                                   ###"
+echo "###                                                                          ###"
+
+env
+
+echo "###                                                                          ###"
+echo "###                                                                          ###"
+echo "################################################################################"
+
+JVMOPTS="-Xms512m -Xmx1024m -XX:MaxPermSize=128m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -Dfile.encoding=UTF-8";
+if [ "$1" == "-debug" ]; then
+   shift;
+   JVMOPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=9999,server=y,suspend=n" ${JVMOPTS};
+fi
+
+
+echo $JAVACMD $JVMOPTS
+
+echo "################################################################################"
+echo "###                                                                          ###"
+echo "###             Setting PORT to $PORT                                        ###"
+echo "###                                                                          ###"
+
+rm -f conf/config_include.properties
+cat conf/config_include.properties.template | sed s/PORT/${PORT}/ > conf/config_include.properties
+
+cat conf/config_include.properties
+
+echo "###                                                                          ###"
+echo "###                                                                          ###"
+echo "################################################################################"
+
+commandline
+
+exit $?
+
