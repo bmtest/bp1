@@ -9,7 +9,7 @@ module LanguagePack
     FFEngine_REL_VERSION = "R1.4.0.1"
     FFEngine_SVN_VERSION = "R2872"
     FFEngine_DOWNLOAD = "https://system.fatfractal.com/repo/artifact/Releases/#{FFEngine_REL_VERSION}"
-    FFEngine_PACKAGE =  "FF_RUNTIME_#{FFEngine_REL_VERSION}_#{FFEngine_SVN_VERSION}.zip".freeze
+    FFEngine_PACKAGE =  "FF_RUNTIME_#{FFEngine_REL_VERSION}_#{FFEngine_SVN_VERSION}.tar.gz".freeze
     FFEngine_TOP_DIR = "FatFractal_Runtime"
 
     def self.use?
@@ -39,7 +39,7 @@ module LanguagePack
       download_ffengine ffengine_tarball
 
       puts "Unpacking FFEngine to #{ffengine_dir}"
-      puts run_with_err_output("echo starting jar extract; env; $HOME/.jdk/bin/jar xvf #{ffengine_tarball} -C #{ffengine_dir} ; echo jar extract complete")
+      puts run_with_err_output("tar pxzf #{ffengine_tarball} -C #{ffengine_dir} ")
       puts "Listing contents of #{ffengine_dir}"
       puts run_with_err_output("ls -al #{ffengine_dir}")
       # puts "Removing #{ffengine_tarball}"
@@ -53,7 +53,7 @@ module LanguagePack
 
     def download_ffengine(ffengine_tarball)
       # TODO : Do the same for the JDK
-      # TODO : Keep the tarball around, check for it next time instead of re-downloading
+      puts "Checking if #{ffengine_tarball} exists before re-downloading"
       if (File.exists?(ffengine_tarball))
         puts "###"
         puts "# tarball found - shouldn't really download again"
