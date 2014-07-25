@@ -2,7 +2,7 @@
 
 commandline() {
    # TODO: Pick up FF_FABRIC_DOMAIN from the payload when we push to the cloudfoundry instance
-   export FF_FABRIC_DOMAIN=datagraph.bluemix.net
+   export FF_FABRIC_DOMAIN=datagraph.mybluemix.net
    echo Set FF_FABRIC_DOMAIN to $FF_FABRIC_DOMAIN
    "$JAVACMD" ${JVMOPTS} "-Dsun.net.http.allowRestrictedHeaders=true" "-Dcom.fatfractal.system.deploy.directory=$FATFRACTAL_HOME" "-Dcom.fatfractal.system.start.mode=cl" "-Dcom.fatfractal.tool.main=run" -jar lib/fatfractal-tool-0.1.0.jar
    }

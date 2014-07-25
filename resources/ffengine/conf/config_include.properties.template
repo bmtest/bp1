@@ -4,4 +4,4 @@ com.fatfractal.engine.net.include.plain.port = PORT
 com.fatfractal.engine.net.include.ssl.port = 8443
 com.fatfractal.engine.scanner.include.interval = 5
 com.fatfractal.engine.reactor.include.server.type = synchronous
-com.fatfractal.engine.include.log.level = INFO
+com.fatfractal.engine.include.log.level = WARN
