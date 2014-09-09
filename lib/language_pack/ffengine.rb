@@ -7,7 +7,7 @@ module LanguagePack
     include LanguagePack::PackageFetcher
 
     FFEngine_REL_VERSION = "Bluemix"
-    FFEngine_SVN_VERSION = "R2915"
+    FFEngine_SVN_VERSION = "R2917"
     FFEngine_DOWNLOAD = "http://system.fatfractal.com/repo/artifact/Releases/#{FFEngine_REL_VERSION}"
     FFEngine_PACKAGE =  "FF_RUNTIME_#{FFEngine_REL_VERSION}_#{FFEngine_SVN_VERSION}.tar.gz".freeze
     FFEngine_TOP_DIR = "FatFractal_Runtime"
